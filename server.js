@@ -169,7 +169,47 @@ app.use(bodyParser.urlendcoded({ extended: false }));
 // Enable use of cookie-parser NPM
 app.use(cookieParser());
 
+// App.use registers middleware. Express.static is a middleware function. 
+// Basically it's used to define which assets your server should make 
+// publicly available to the user. So anything the user needs to see 
+// or interact with by default. The front end of your app. 
+// Props to Chris Eckenrode
+app.use(express.static(path.join(__dirname, "public")));
 
+// Format app.use("path", "callback")
+// The following set paths and the controllers to use on said path
+// All four "callbacks" have their file paths set on lines 52 - 55
+app.use("/", application_controller);
+app.use("/users", users_controller);
+app.use("/people", people_controller);
+app.use("/people", tasks_controller);
 
+//------------------------------------------------------------------
+// ERROR HANDLING --------------------------------------------------
+// ****EXPLANATIONS:
+// 		Link 1: http://stackoverflow.com/questions/13133071/express-next-function-what-is-it-really-for
+//		Link 2: http://stackoverflow.com/questions/7151487/error-handling-principles-for-node-js-express-js-applications/7151775#7151775
+// 		Props to Pavan for links
+// Catch 04 and forward to error handler
+app.use(function(req, res, next) {
+	var err = new Error("Not Found");
+	err.status = 404;
+	next(err);
+});
 
+// Error handler
+// No stacktraces leaked to user unless in development environment
+app.use(function(err, req, res, next) {
+	res.status(err.status || 500);
+	res.render("error", {
+		message: err.message,
+		error: (app.get("env") === "development") ? err : {}
+	});
+});
+// ERROR HANDLING END ----------------------------------------------
+//------------------------------------------------------------------
+// APP.USE SECTION END ---------------------------------------------
+//------------------------------------------------------------------
 
+// Export express --------------------------------------------------
+module.exports = app;
