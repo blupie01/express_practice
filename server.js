@@ -89,3 +89,46 @@ app.use(session({ secret: "app", cookie: { maxAge: 60000 }}));
 
 // ALLOW COOKIE-PARSER ---------------------------------------------
 app.use(cookieParser());
+
+// VIEW ENGINE SETUP -----------------------------------------------
+// Assigns setting name to value, where name is one of the properties 
+// from the app settings table. 
+// **Link: https://expressjs.com/en/api.html#app.settings.table**
+// EX. Retrieve the value of a setting with app.get().
+// app.set('property', 'My Site');
+// app.get('property'); // "My Site"
+//
+// We use "views" as the "property" to do the following: 
+// A directory or an array of directories for the application's views. 
+// If an array, the views are looked up in the order they occur in the 
+// array.
+//
+// We use path.join(__dirname, "views") as the 'My Site'.
+// Use NPM package path to direct to views folder.
+app.set("views", path.join(__dirname, "views"));
+// VIEW ENGINE SETUP END -------------------------------------------
+
+// HANDLEBARS SETUP ------------------------------------------------
+// REQUIRE express-handlebars NPM ----------------------------------
+var exphbs = require("express-handlebars");
+// app.engine(ext, callback)
+// Registers the given template engine (handlebars is a templating engine)
+// callback as ext. By default, Express will require() the engine 
+// based on the file extension. For example, if you try to render 
+// a “foo.pug” file, Express invokes the following internally, and 
+// caches the require() on subsequent calls to increase performance.
+// **NOTE: because we set up the engine in the above app.set() it 
+// allows us to use defaultLayout: "main" instead of typing out the
+// entire path to ./views/layouts/main.hbs**
+// *****I am assuming the engine is going through all folders
+// to find the main.hbs file******
+app.engine("handlebars", exphbs({
+	defaultLayout: "main"
+}));
+
+app.set("view engine", "handlebars");
+// HANDLEBARS SETUP END --------------------------------------------
+
+
+
+
