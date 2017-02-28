@@ -108,6 +108,7 @@ app.use(cookieParser());
 app.set("views", path.join(__dirname, "views"));
 // VIEW ENGINE SETUP END -------------------------------------------
 
+//------------------------------------------------------------------
 // HANDLEBARS SETUP ------------------------------------------------
 // REQUIRE express-handlebars NPM ----------------------------------
 var exphbs = require("express-handlebars");
@@ -125,9 +126,49 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({
 	defaultLayout: "main"
 }));
-
+// View Engine: The default engine extension to use when omitted.
 app.set("view engine", "handlebars");
 // HANDLEBARS SETUP END --------------------------------------------
+//------------------------------------------------------------------
+
+//------------------------------------------------------------------
+// APP.USE SECTION -------------------------------------------------
+// **INFO for app.use in below line**
+// ****LINK: https://expressjs.com/en/api.html#app.use****
+
+// sets the favicon in your web tab
+// we don't have an icon so commented out
+// app.use(favicon(__dirname + "/public/favicon.ico"));
+
+// logger is the Morgan NPM package
+// DEV argument: Concise output colored by response status for 
+// development use. The :status token will be colored red for 
+// server error codes, yellow for client error codes, 
+// cyan for redirection codes, and uncolored for all other codes.
+app.use(logger("dev"));
+
+// bodyParser.json(): Parses the text as JSON and exposes the 
+// resulting object on req.body. Only after setting the req.body to 
+// the desirable contents will it call the next middleware in the stack, 
+// which can then access the request data without having to think about 
+// how to unzip and parse it.
+app.use(bodyParser.json());
+
+// Extended: true is the default value for this middleware in express.
+// So, what's the use of this middleware. Here, when you fire POST 
+// request it gets encoded in form of object that only contains 
+// {key:value} pairs only or can contain a simple string in json 
+// format only.
+// Extended: false tells express that url can contain any 
+// format/type of file in url.
+// **NOTE: extended option allows to choose between parsing the 
+// URL-encoded data with the querystring library (when false) or the 
+// qs library (when true).**
+app.use(bodyParser.urlendcoded({ extended: false }));
+
+// Enable use of cookie-parser NPM
+app.use(cookieParser());
+
 
 
 
