@@ -178,6 +178,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Format app.use("path", "callback")
 // The following set paths and the controllers to use on said path
+// ^ Line 180 Not correct: the four app.use() prepends the routes in the 
+// controllers with that URL
 // All four "callbacks" have their file paths set on lines 52 - 55
 app.use("/", application_controller);
 app.use("/users", users_controller);
