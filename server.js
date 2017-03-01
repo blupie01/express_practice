@@ -190,7 +190,7 @@ app.use("/people", tasks_controller);
 // 		Link 1: http://stackoverflow.com/questions/13133071/express-next-function-what-is-it-really-for
 //		Link 2: http://stackoverflow.com/questions/7151487/error-handling-principles-for-node-js-express-js-applications/7151775#7151775
 // 		Props to Pavan for links
-// Catch 04 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	var err = new Error("Not Found");
 	err.status = 404;
