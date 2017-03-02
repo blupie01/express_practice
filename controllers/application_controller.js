@@ -14,7 +14,7 @@ var express = require("express");
 var router = express.Router();
 // REQUIRED ROUTER END ---------------------------------------------------
 
-
+// USING ROUTER TO PATH WHEN CONTROLLER IS CALLED ------------------------
 // router.METHOD(path, [callback, ...] callback)
 // The router.METHOD() methods provide the routing functionality in Express, 
 // where METHOD is one of the HTTP methods, such as GET, PUT, POST, and so on, 
@@ -23,5 +23,5 @@ var router = express.Router();
 // **Link1: https://expressjs.com/en/api.html#router**
 
 
-// Export router
+// Export router ---------------------------------------------------------
 module.exports = router;

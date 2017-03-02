@@ -1,0 +1,30 @@
+HOW TO COMMENT IN A JSON FILE
+-------------------------------------------------------------------------
+The JSON should all be data, and if you include a comment, 
+then it will be data too.
+
+You could have a designated data element called "_comment" (or something) 
+that would be ignored by apps that use the JSON data.
+
+You would probably be better having the comment in the processes that 
+generates/receives the JSON, as they are supposed to know what the JSON 
+data will be in advance, or at least the structure of it.
+-------------------------------------------------------------------------
+
+
+EXPLANATION OF NODE START OR NODEMON START
+-------------------------------------------------------------------------
+In the package.json file there is a "scripts" data element.
+When node start or nodemon start is entered it will look for a matching
+command in "scripts".
+
+Something like that is common to use if you want multiple things to happen 
+when starting the server and don't want to type multiple commands. 
+You just paste the command to run in the package.json file.
+
+By default node will look for a file called index.js in a directory. 
+However, we have specified which file to look for via "node ./bin/www.js".
+This is why www.js is run instead.
+
+Props to Chris for explanation.
+-------------------------------------------------------------------------
