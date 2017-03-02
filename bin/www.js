@@ -31,4 +31,31 @@ var models = require("../models");
 app.set("port", process.env.PORT || 3000);
 // SET PORT END ----------------------------------------------------------
 
-// 
+// SEQUELIZE -------------------------------------------------------------
+// Sync all defined models to the DB.
+// More info here:
+// **Link: http://sequelize.readthedocs.io/en/latest/api/sequelize/#sync**
+// For all models in the models folder we are syncing our database so we
+// can use the data later. Then...
+models.sequelize.sync().then(function() {
+	// app.listen(port, [hostname], [backlog], [callback])
+	// Not using [hostname] and [backlog].
+	// Binds and listens for connections on the specified port.
+	// **Link: https://expressjs.com/en/api.html#app.listen**
+	// Here we are setting variable server to use express to get the 
+	// port express is using and using a callback to... 
+	var server = app.listen(app.get("port"), function() {
+		// Use debug to console.log the port we are using.
+		// ADDRESS().PORT ------------------------------------------------
+		// ****IMPORTANT: address() is a node.js method.****
+		// Returns the bound address, the address family name, and port of 
+		// the server as reported by the operating system. Useful to find 
+		// which port was assigned when getting an OS-assigned address. 
+		// Returns an object with port, family, and address properties: 
+		// 		ex. { port: 12346, family: 'IPv4', address: '127.0.0.1' }
+		// **Link: https://nodejs.org/api/net.html#net_server_address**
+		debug("Express server listening on port " + server.address().port);
+		// ADDRESS().PORT END --------------------------------------------
+	});
+});
+// SEQUELIZE END ---------------------------------------------------------
